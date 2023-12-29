@@ -15,7 +15,7 @@ userSelection.post("/", async (req, res) => {
   try {
     const { error } = selectionSchema.validate(req.body);
     if (error) {
-      return res.status(400).json({ error: error.details[0].message });
+      return res.status(400).json({ message: error.details[0].message });
     }
 
     const { userId, fullName, sector, agree } = req.body;
@@ -28,7 +28,7 @@ userSelection.post("/", async (req, res) => {
 
     if (existingSelection) {
       return res.status(400).json({
-        error: "Selections with the same userId already exists",
+        message: "Selections with the same userId already exists",
       });
     }
 
@@ -50,7 +50,7 @@ userSelection.post("/", async (req, res) => {
       insertedData,
     });
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -65,7 +65,7 @@ userSelection.patch("/:userId", async (req, res) => {
   try {
     const { error } = selectionUpdateSchema.validate(req.body);
     if (error) {
-      return res.status(400).json({ error: error.details[0].message });
+      return res.status(400).json({ message: error.details[0].message });
     }
 
     const { fullName, sector, agree } = req.body;
@@ -89,7 +89,7 @@ userSelection.patch("/:userId", async (req, res) => {
 
     // Check if the document was found and updated
     if (updateSelection.modifiedCount === 0) {
-      return res.status(404).json({ error: "Selection not found for user" });
+      return res.status(404).json({ message: "Selection not found for user" });
     }
 
     // Get the updated document
@@ -103,7 +103,7 @@ userSelection.patch("/:userId", async (req, res) => {
     });
   } catch (error) {
     console.error("Error updating selection:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -124,7 +124,7 @@ userSelection.get("/:id", async (req, res) => {
     });
   } catch (error) {
     console.error("Error retrieving user selections:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 module.exports = userSelection;
