@@ -7,7 +7,7 @@ const Joi = require("joi");
 const selectionSchema = Joi.object({
   userId: Joi.string().required(),
   fullName: Joi.string().min(3).max(30),
-  sector: Joi.string().min(3).max(30),
+  sector: Joi.string().min(3).max(100),
   agree: Joi.boolean(),
 });
 
@@ -57,7 +57,7 @@ userSelection.post("/", async (req, res) => {
 //Patch
 const selectionUpdateSchema = Joi.object({
   fullName: Joi.string().min(3).max(30),
-  sector: Joi.string().min(3).max(30),
+  sector: Joi.string().min(3).max(100),
   agree: Joi.boolean(),
 });
 
